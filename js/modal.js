@@ -21,17 +21,17 @@ btnOpen.onclick = showModal;
 btnClose.onclick = closeModal;
 
 //---ДЗ 3.3 (TIMED MODAL)---//
-setTimeout(showModal, 10000);
-//---ДЗ 3.2 (SHOW MODAL AT PAGE BOOTOM)---//
-const showModalByScroll = () =>{
-    const scrollPosition=window.scrollY+window.innerHeight;
-    const pageHeight=document.documentElement.scrollHeight;
+// setTimeout(showModal, 10000);
+// //---ДЗ 3.2 (SHOW MODAL AT PAGE BOOTOM)---//
+// const showModalByScroll = () =>{
+//     const scrollPosition=window.scrollY+window.innerHeight;
+//     const pageHeight=document.documentElement.scrollHeight;
 
-    if (scrollPosition>=pageHeight-5){
-        showModal();
+//     if (scrollPosition>=pageHeight-5){
+//         showModal();
 
-        window.removeEventListener('scroll', showModalByScroll)
-    }
-};
+//         window.removeEventListener('scroll', showModalByScroll)
+//     }
+// };
 
-window.addEventListener('scroll', showModalByScroll);
+// window.addEventListener('scroll', showModalByScroll);
