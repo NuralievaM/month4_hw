@@ -70,3 +70,80 @@ const converter = (element) => {
 converter(somInput);
 converter(usdInput);
 converter(eurInput);
+
+
+//---ДЗ 6 (FETCH REQUESTS)---//
+const card = document.querySelector('.card');
+const btnNext = document.querySelector('#btn-next');
+const btnPrev = document.querySelector('#btn-prev');
+
+let cardId = 1;
+const maxCardId = 200; 
+
+const renderCard = () => {
+    fetch(`https://jsonplaceholder.typicode.com/todos/${cardId}`)
+    .then(response =>{
+        if (response.status !== 200) {
+            throw new Error('Произошла ошибка на сервере');
+        }
+        else {
+            return response.json();
+        }
+    })
+    .then(data => {
+        const {id, title, completed} = data;
+        const color = completed ? 'green' : 'red';
+        card.style.borderColor = color;
+        card.innerHTML = `
+        <p>${id}</p>
+        <p>${title}</p>
+        <p>${completed ? 'Completed' : 'Not completed'}</p>
+        `
+    })
+    .catch(error => {
+        card.style.color = 'red';
+        card.innerHTML = error.message;
+    })
+}
+btnNext.onclick = () => {
+    if (cardId < maxCardId) {
+        cardId++;
+        renderCard();
+    } else if (cardId === maxCardId) {
+        cardId = 1;
+        renderCard();
+    }
+}
+
+btnPrev.onclick = () => {
+    if (cardId > 1) {
+        cardId--;
+        renderCard();
+    } else if (cardId === 1) {
+        cardId = maxCardId;
+        renderCard();
+    }
+}
+
+renderCard(cardId);
+
+const fetchPosts = () => {
+    fetch('https://jsonplaceholder.typicode.com/posts')
+    .then(response => {
+        if (response.status !== 200) {
+            throw new Error('Произошла ошибка на сервере');
+        }
+        else {
+            return response.json();
+        }
+    })
+    .then(data => {
+        console.log(data);
+    })
+    .catch(error => {
+        console.error(error.message);
+    })
+}
+
+fetchPosts();
+
