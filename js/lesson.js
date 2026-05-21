@@ -80,17 +80,40 @@ const btnPrev = document.querySelector('#btn-prev');
 let cardId = 1;
 const maxCardId = 200; 
 
-const renderCard = () => {
-    fetch(`https://jsonplaceholder.typicode.com/todos/${cardId}`)
-    .then(response =>{
+// const renderCard = () => {
+//     fetch(`https://jsonplaceholder.typicode.com/todos/${cardId}`)
+//     .then(response =>{
+//         if (response.status !== 200) {
+//             throw new Error('Произошла ошибка на сервере');
+//         }
+//         else {
+//             return response.json();
+//         }
+//     })
+//     .then(data => {
+//         const {id, title, completed} = data;
+//         const color = completed ? 'green' : 'red';
+//         card.style.borderColor = color;
+//         card.innerHTML = `
+//         <p>${id}</p>
+//         <p>${title}</p>
+//         <p>${completed ? 'Completed' : 'Not completed'}</p>
+//         `
+//     })
+//     .catch(error => {
+//         card.style.color = 'red';
+//         card.innerHTML = error.message;
+//     })
+// }
+
+//---ДЗ 7.1 (ASYNC/AWAIT)---//
+const renderCard = async () => {
+    try {
+        const response = await fetch(`https://jsonplaceholder.typicode.com/todos/${cardId}`);
         if (response.status !== 200) {
             throw new Error('Произошла ошибка на сервере');
         }
-        else {
-            return response.json();
-        }
-    })
-    .then(data => {
+        const data = await response.json();
         const {id, title, completed} = data;
         const color = completed ? 'green' : 'red';
         card.style.borderColor = color;
@@ -99,11 +122,11 @@ const renderCard = () => {
         <p>${title}</p>
         <p>${completed ? 'Completed' : 'Not completed'}</p>
         `
-    })
-    .catch(error => {
+    }
+    catch (error) {
         card.style.color = 'red';
         card.innerHTML = error.message;
-    })
+    }
 }
 btnNext.onclick = () => {
     if (cardId < maxCardId) {
@@ -127,22 +150,38 @@ btnPrev.onclick = () => {
 
 renderCard(cardId);
 
-const fetchPosts = () => {
-    fetch('https://jsonplaceholder.typicode.com/posts')
-    .then(response => {
+// const fetchPosts = () => {
+//     fetch('https://jsonplaceholder.typicode.com/posts')
+//     .then(response => {
+//         if (response.status !== 200) {
+//             throw new Error('Произошла ошибка на сервере');
+//         }
+//         else {
+//             return response.json();
+//         }
+//     })
+//     .then(data => {
+//         console.log(data);
+//     })
+//     .catch(error => {
+//         console.error(error.message);
+//     })
+// }
+
+
+//---ДЗ 7.1 (ASYNC/AWAIT)---//
+const fetchPosts = async () => {
+    try{
+        const response = await fetch('https://jsonplaceholder.typicode.com/posts');
         if (response.status !== 200) {
             throw new Error('Произошла ошибка на сервере');
         }
-        else {
-            return response.json();
-        }
-    })
-    .then(data => {
+        const data = await response.json();
         console.log(data);
-    })
-    .catch(error => {
+    }
+    catch(error) {
         console.error(error.message);
-    })
+    }
 }
 
 fetchPosts();
